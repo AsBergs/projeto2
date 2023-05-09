@@ -1,47 +1,64 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref }  from 'vue'
+
+const carrinho = ref({})
+const prodtuos = ref ({
+  
+        id: 1,
+        nome: 'TAYLOR SWIFT THE ERAS TOUR BEIGE HOODIE',
+        preco: 75.00
+    },
+    {
+        id: 2,
+        nome: 'TAYLOR SWIFT THE ERAS TOUR BLACK SWEATPANTS',
+        preco: 65.00
+    },
+    {
+        id: 3,
+        nome: 'TAYLOR SWIFT THE ERAS TOUR CROPPED BEIGE PULLOVER',
+        preco: 65.00
+    },
+    {
+        id: 4,
+        nome: 'TAYLOR SWIFT THE ERAS TOUR MUG',
+        preco: 20.00
+    },
+    {
+        id: 5,
+        nome: 'TAYLOR SWIFT THE ERAS TOUR GUITAR PICKS',
+        preco: 15.00
+    },
+    {
+        id: 6,
+        nome: 'TAYLOR SWIFT THE ERAS TOUR POSTER',
+        preco: 30.00
+    },
+    {
+        id: 7,
+        nome: 'TAYLOR SWIFT THE ERAS TOUR PORTABLE CHARGER',
+        preco: 30.00
+    },
+    {
+        id: 8,
+        nome: 'TAYLOR SWIFT THE ERAS TOUR VELVET COSMETIC BAG',
+        preco: 35.00
+    },
+    {
+        id: 9,
+        nome: 'ALL TOO WELL NOTEBOOK',
+        preco: 30.00
+    },
+    {
+        id: 10,
+        nome: 'MeiTAYLOR SWIFT THE ERAS TOUR LUGGAGE STICKERS',
+        preco: 15.00
+
+    } 
+
+
+)
+
+
 </script>
 
-<template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
-</template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
