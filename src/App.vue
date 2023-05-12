@@ -1,9 +1,11 @@
 <script setup>
-import { ref }  from 'vue'
+import { ref } from 'vue'
 
-const carrinho = ref({})
-const produtos = ref ({
-  
+const carrinho = ref([])
+const produtos = ref([
+
+    {
+
         id: 1,
         nome: 'TAYLOR SWIFT THE ERAS TOUR BEIGE HOODIE',
         preco: 75.00,
@@ -44,76 +46,58 @@ const produtos = ref ({
         nome: 'TAYLOR SWIFT THE ERAS TOUR PORTABLE CHARGER',
         preco: 30.00,
         quantidade: 0
-    },
-    {
-        id: 8,
-        nome: 'TAYLOR SWIFT THE ERAS TOUR VELVET COSMETIC BAG',
-        preco: 35.00,
-        quantidade: 0
-    },
-    {
-        id: 9,
-        nome: 'ALL TOO WELL NOTEBOOK',
-        preco: 30.00,
-        quantidade: 0
-    },
-    {
-        id: 10,
-        nome: 'TAYLOR SWIFT THE ERAS TOUR LUGGAGE STICKERS',
-        preco: 15.00,
-        quantidade: 0
+    }
 
-    } 
-
+]
 
 )
- const enviar = ref(false)
+const enviar = ref(false)
 
- function addToCart (){
-if(quantidade == 0){
-    alert("Add the products first")
-} else{
-    carrinho.value.push({id, nome, preco, quantidade})
-  calcularCart() 
+function addToCart(item) {
+    if (item.quantidade === 0) {
+        alert("Add the products first")
+    } else {
+        carrinho.value.push({...item})
+        calcularCart()
+    }
+
+
 }
-
-
-} 
 const valorCart = ref(0)
 function calcularCart() {
-valortotal.value = item.preco * item.quantidade
-for (let index = 0; index < carrinho.value.length; index++) {
-valorCart.value = valorCart.value + carrinho.value[index].valortotal
-}
+    valortotal.value = item.preco * item.quantidade
+    for (let index = 0; index < carrinho.value.length; index++) {
+        valorCart.value = valorCart.value + carrinho.value[index].valortotal
+    }
 }
 
 function addQtd(index) {
-produtos.value[index].quantidade++
+    produtos.value[index].quantidade++
 
 
 }
 
 function removeQtd(index) {
-if (produtos.value[index].quantidade > 1) { produtos.value[index].quantidade-- }
+    if (produtos.value[index].quantidade > 0) { produtos.value[index].quantidade-- }
 
 }
 
 function cleanCart() {
-carrinho.value = []
-valorCart.value = 0
+    carrinho.value = []
+    valorCart.value = 0
 }
 
 function remove(index) {
-carrinho.value.splice(index, 1)
-calcularCart()
+    carrinho.value.splice(index, 1)
+    calcularCart()
 }
 
 function showCart() {
-if(carrinho.value < [0]){
-alert('Empty Cart')
-} else{
-enviar.value = !enviar.value
-}
+    if (carrinho.value < [0]) {
+        alert('Empty Cart')
+    } else {
+        enviar.value = !enviar.value
+    }
 }
 
 
@@ -122,36 +106,37 @@ enviar.value = !enviar.value
 
 
 <template>
-<div >
+    <div>
 
-<ul>
-<li v-for = "(item, index) in produtos" :key="index">
-<p>Item: {{ item.nome }}</p>
-<p>Price: {{ (item.preco) }}</p>
-<p>Amount: {{ item.quantidade }}</p>
-<p><button @click="addCart(item)">Add To The Cart</button>
-<button  @click="addQtd(item.id - 1)">+</button>
-<button  @click="removeQtd(index)">-</button>
-</p>
-</li>
-</ul>
-<button @click="(showCart)">Show Cart</button>
-</div>
+        <ul>
+            <li v-for="(item, index) in produtos" :key="index">
+                <p>Item: {{ item.nome }}</p>
+                <p>Price: {{ (item.preco) }}</p>
+                <p>Amount: {{ item.quantidade }}</p>                    
+                <button @click="addQtd(index)">+</button>
+                <button @click="removeQtd(index)">-</button>
+                <p><button @click="addToCart(item)">Add To The Cart</button>
 
-<div v-if="enviar" >
-<ul>
-<li v-for="(item, index) in carrinho" :key="index">
-<p>Produto: {{ item.nome }}</p>
-<p>Preço:{{ (item.preco) }}</p>
-<p>Quantidade: {{ item.quantidade }}</p>
-<button @click="remove(index)">Remove Item</button>
-</li>
-</ul>
+                </p>
+            </li>
+        </ul>
+        <button @click="(showCart)">Show Cart</button>
+    </div>
 
-<p>Total Price: {{(valortotal) }}</p>
-<button  @click="cleanCart()">Clean Cart</button>
-<button  @click="enviar = !enviar"> Close Cart</button>
+    <div v-if="enviar">
+        <ul>
+            <li v-for="(item, index) in carrinho" :key="index">
+                <p>Produto: {{ item.nome }}</p>
+                <p>Preço:{{ (item.preco) }}</p>
+                <p>Quantidade: {{ item.quantidade }}</p>
+                <button @click="remove(index)">Remove Item</button>
+            </li>
+        </ul>
 
-</div>
+        <p>Total Price: {{ (valortotal) }}</p>
+        <button @click="cleanCart()">Clean Cart</button>
+        <button @click="enviar = !enviar"> Close Cart</button>
+
+    </div>
 </template>
 
